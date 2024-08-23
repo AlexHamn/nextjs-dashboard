@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import React from 'react';
 
 export default function Notes() {
   const [notes, setNotes] = useState([]);
@@ -16,16 +17,16 @@ export default function Notes() {
     setNotes(data[0].result);
   };
 
-  const addNote = async (e) => {
-    e.preventDefault();
-    await fetch('/api/notes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: newNote }),
-    });
-    setNewNote('');
-    fetchNotes();
-  };
+const addNote = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  e.preventDefault();
+  await fetch('/api/notes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content: newNote }),
+  });
+  setNewNote('');
+  fetchNotes();
+};
 
   return (
     <div>
